@@ -2,14 +2,18 @@ namespace BlogServer.Data;
 
 public class WeatherForecastService
 {
+    public WeatherForecastService(CategoryService service) {
+        System.Console.WriteLine("CTOR" + service.name);
+    }
+
     private static readonly string[] Summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    public Task<WeatherForecast[]> GetForecastAsync(DateOnly startDate)
+    public Task<WeatherForecastModel[]> GetForecastAsync(DateOnly startDate)
     {
-        return Task.FromResult(Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        return Task.FromResult(Enumerable.Range(1, 5).Select(index => new WeatherForecastModel
         {
             Date = startDate.AddDays(index),
             TemperatureC = Random.Shared.Next(-20, 55),

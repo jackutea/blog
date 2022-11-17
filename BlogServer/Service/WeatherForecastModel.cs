@@ -1,7 +1,6 @@
 namespace BlogServer.Data;
 
-public class WeatherForecast
-{
+public class WeatherForecastModel {
     public DateOnly Date { get; set; }
 
     public int TemperatureC { get; set; }

@@ -9,7 +9,8 @@ main {
 }
 
 .sidebar {
-    background: rgb(252, 229, 43);
+    background: rgb(17, 17, 17);
+    /* background: rgb(252, 229, 43); */
 }
 
 .top-row {

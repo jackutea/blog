@@ -1,0 +1,15 @@
+@page "/blog"
+@using BlogServer.Data
+@inject CategoryService CategoryService
+<PageTitle>博客列表</PageTitle>
+
+<h1>博客列表</h1>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CategoryService.OnAwakeAsync();
+    }
+
+}
