@@ -1,0 +1,27 @@
+ul {
+    width: 100%;
+    display: block;
+    float: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 20px solid black;
+    margin-bottom: 0px;
+}
+
+.jack {
+    font-size: 18px;
+    font-weight: 900;
+    margin-top: -2px;
+}
+
+ul li {
+    display: block;
+    float: left;
+    margin-right: 20px;
+    list-style-type: none;
+    font-style: 16px;
+}
+
+a {
+    color: #333;
+}

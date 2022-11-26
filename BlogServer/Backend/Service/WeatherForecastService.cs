@@ -3,7 +3,6 @@ namespace BlogServer.Data;
 public class WeatherForecastService
 {
     public WeatherForecastService(CategoryService service) {
-        System.Console.WriteLine("CTOR" + service.name);
     }
 
     private static readonly string[] Summaries = new[]

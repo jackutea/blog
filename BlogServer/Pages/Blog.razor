@@ -3,13 +3,73 @@
 @inject CategoryService CategoryService
 <PageTitle>博客列表</PageTitle>
 
-<h1>博客列表</h1>
+<div class="body">
+    <div class="category">
+        <ol>
+            @foreach (var kv in contentDic)
+            {
+                var blog = kv.Value;
+                <li class="td_title"><a @onclick="(e => RequestBlogContent(blog.id))">@blog.title</a></li>
+            }
+        </ol>
+    </div>
+
+    <div class="content">
+        @if (currentBlog != null)
+        {
+            <h1 class="content_title">@currentBlog.title</h1>
+            @((MarkupString)currentBlog.content)
+        }
+    </div>
+</div>
 
 @code {
 
-    protected override async Task OnInitializedAsync()
+    Dictionary<int, BlogModel> contentDic = new Dictionary<int, BlogModel>();
+    BlogModel currentBlog = null;
+
+    protected override void OnInitialized()
     {
-        await CategoryService.OnAwakeAsync();
+        contentDic.Clear();
+        var arr = CategoryService.OnReqLoadBlogs();
+        for (int i = 0; i < arr.Length; i += 1)
+        {
+            var msg = arr[i];
+            if (contentDic.ContainsKey(msg.id))
+            {
+                var blog = contentDic[msg.id];
+                blog.title = msg.title;
+            }
+            else
+            {
+                contentDic.Add(msg.id, new BlogModel()
+                {
+                    id = msg.id,
+                    title = msg.title,
+                });
+            }
+        }
+    }
+
+    void RequestBlogContent(int blogID)
+    {
+        bool has = contentDic.TryGetValue(blogID, out var blog);
+        if (has)
+        {
+            currentBlog = blog;
+            if (!string.IsNullOrEmpty(blog.content))
+            {
+            }
+            else
+            {
+                var content = CategoryService.OnReqLoadBlog(blogID);
+                blog.content = content;
+            }
+        }
+        else
+        {
+            currentBlog = null;
+        }
     }
 
 }
