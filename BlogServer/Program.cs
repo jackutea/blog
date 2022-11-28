@@ -2,8 +2,12 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using BlogServer.Data;
 using BlogServer.Facades;
+using BlogServer.Controller;
 
 var builder = WebApplication.CreateBuilder(args);
+
+MainController mainController = new MainController();
+mainController.Init();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

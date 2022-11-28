@@ -8,18 +8,35 @@ ul {
     margin-bottom: 0px;
 }
 
-.jack {
-    font-size: 18px;
+.logo {
+    font-size: 20px;
     font-weight: 900;
-    margin-top: -2px;
+}
+.logo a {
+    text-decoration: none;
 }
 
-ul li {
+.social_icon {
     display: block;
     float: left;
-    margin-right: 20px;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+}
+
+li {
+    display: block;
+    float: left;
     list-style-type: none;
-    font-style: 16px;
+    margin-right: 20px;
+}
+
+.nav_li {
+    margin-top: 4px;
+}
+
+.nav_li a {
+    font-size: 18px;
 }
 
 a {

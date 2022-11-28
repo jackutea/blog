@@ -5,27 +5,26 @@
 
 <div class="body">
     <div class="category">
-        <ol>
-            @foreach (var kv in contentDic)
+        <ul>
+            @foreach (var blog in blogList)
             {
-                var blog = kv.Value;
-                <li class="td_title"><a @onclick="(e => RequestBlogContent(blog.id))">@blog.title</a></li>
+                <li class="td_title"><a @onclick="(e => RequestBlogContent(blog.id))">@blog.filePath.Replace("..\\Docs\\", "")</a></li>
             }
-        </ol>
+        </ul>
     </div>
 
     <div class="content">
         @if (currentBlog != null)
         {
             <h1 class="content_title">@currentBlog.title</h1>
-            @((MarkupString)currentBlog.content)
+            <Markdown FilePath="@currentBlog.filePath"></Markdown>
         }
     </div>
 </div>
 
 @code {
-
     Dictionary<int, BlogModel> contentDic = new Dictionary<int, BlogModel>();
+    List<BlogModel> blogList = new List<BlogModel>();
     BlogModel currentBlog = null;
 
     protected override void OnInitialized()
@@ -39,6 +38,7 @@
             {
                 var blog = contentDic[msg.id];
                 blog.title = msg.title;
+                blog.filePath = msg.filePath;
             }
             else
             {
@@ -46,9 +46,12 @@
                 {
                     id = msg.id,
                     title = msg.title,
+                    filePath = msg.filePath,
                 });
             }
         }
+        blogList = contentDic.Values.ToList();
+        blogList.Sort((a, b) => a.filePath.CompareTo(b.filePath));
     }
 
     void RequestBlogContent(int blogID)
@@ -57,10 +60,7 @@
         if (has)
         {
             currentBlog = blog;
-            if (!string.IsNullOrEmpty(blog.content))
-            {
-            }
-            else
+            if (string.IsNullOrEmpty(blog.content))
             {
                 var content = CategoryService.OnReqLoadBlog(blogID);
                 blog.content = content;

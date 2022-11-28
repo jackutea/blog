@@ -3,9 +3,10 @@
 }
 
 .category {
-    max-width: 360px;
+    max-width: 400px;
     display: block;
     float: left;
+    margin-left: -5px;
     margin-top: 0px;
     padding-right: 20px;
     padding-top: 10px;
@@ -14,15 +15,15 @@
 
 .category li {
     margin-top: 5px;
+    list-style: none;
 }
 
 .category li a {
-    text-decoration: underline;
     cursor: pointer;
 }
 
 .content {
     display: block;
-    padding-left: 360px;
+    padding-left: 460px;
     padding-top: 80px;
 }
