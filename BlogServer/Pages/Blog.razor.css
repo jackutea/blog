@@ -1,0 +1,29 @@
+.body {
+    width: 100%;
+}
+
+.category {
+    max-width: 400px;
+    display: block;
+    float: left;
+    margin-left: -5px;
+    margin-top: 0px;
+    padding-right: 20px;
+    padding-top: 10px;
+    border-right: 10px solid #999;
+}
+
+.category li {
+    margin-top: 5px;
+    list-style: none;
+}
+
+.category li a {
+    cursor: pointer;
+}
+
+.content {
+    display: block;
+    padding-left: 460px;
+    padding-top: 80px;
+}

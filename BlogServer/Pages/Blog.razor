@@ -1,0 +1,75 @@
+@page "/blog"
+@using BlogServer.Data
+@inject CategoryService CategoryService
+<PageTitle>博客列表</PageTitle>
+
+<div class="body">
+    <div class="category">
+        <ul>
+            @foreach (var blog in blogList)
+            {
+                <li class="td_title"><a @onclick="(e => RequestBlogContent(blog.id))">@blog.filePath.Replace("..\\Docs\\", "")</a></li>
+            }
+        </ul>
+    </div>
+
+    <div class="content">
+        @if (currentBlog != null)
+        {
+            <h1 class="content_title">@currentBlog.title</h1>
+            <Markdown FilePath="@currentBlog.filePath"></Markdown>
+        }
+    </div>
+</div>
+
+@code {
+    Dictionary<int, BlogModel> contentDic = new Dictionary<int, BlogModel>();
+    List<BlogModel> blogList = new List<BlogModel>();
+    BlogModel currentBlog = null;
+
+    protected override void OnInitialized()
+    {
+        contentDic.Clear();
+        var arr = CategoryService.OnReqLoadBlogs();
+        for (int i = 0; i < arr.Length; i += 1)
+        {
+            var msg = arr[i];
+            if (contentDic.ContainsKey(msg.id))
+            {
+                var blog = contentDic[msg.id];
+                blog.title = msg.title;
+                blog.filePath = msg.filePath;
+            }
+            else
+            {
+                contentDic.Add(msg.id, new BlogModel()
+                {
+                    id = msg.id,
+                    title = msg.title,
+                    filePath = msg.filePath,
+                });
+            }
+        }
+        blogList = contentDic.Values.ToList();
+        blogList.Sort((a, b) => a.filePath.CompareTo(b.filePath));
+    }
+
+    void RequestBlogContent(int blogID)
+    {
+        bool has = contentDic.TryGetValue(blogID, out var blog);
+        if (has)
+        {
+            currentBlog = blog;
+            if (string.IsNullOrEmpty(blog.content))
+            {
+                var content = CategoryService.OnReqLoadBlog(blogID);
+                blog.content = content;
+            }
+        }
+        else
+        {
+            currentBlog = null;
+        }
+    }
+
+}

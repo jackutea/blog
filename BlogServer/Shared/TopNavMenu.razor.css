@@ -1,0 +1,44 @@
+ul {
+    width: 100%;
+    display: block;
+    float: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 20px solid black;
+    margin-bottom: 0px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 900;
+}
+.logo a {
+    text-decoration: none;
+}
+
+.social_icon {
+    display: block;
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+}
+
+li {
+    display: block;
+    float: left;
+    list-style-type: none;
+    margin-right: 20px;
+}
+
+.nav_li {
+    margin-top: 4px;
+}
+
+.nav_li a {
+    font-size: 18px;
+}
+
+a {
+    color: #333;
+}
